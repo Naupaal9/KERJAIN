@@ -1,0 +1,1388 @@
+/* ==========================================================================
+   assets/css/style.css — Global stylesheet Kerjain!
+   Murni CSS, tanpa framework. Warna sesuai panduan visual AGENTS.md.
+   ========================================================================== */
+
+/* --- Font lokal Plus Jakarta Sans (file statis per bobot, lihat assets/fonts/) ---
+   Setiap file hanya mendaftarkan bobot + gaya yang memang dimilikinya.
+   Path relatif dari stylesheet: ../fonts/...                               */
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../fonts/PlusJakartaSans-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../fonts/PlusJakartaSans-ExtraLightItalic.ttf') format('truetype');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../fonts/PlusJakartaSans-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../fonts/PlusJakartaSans-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../fonts/PlusJakartaSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../fonts/PlusJakartaSans-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../fonts/PlusJakartaSans-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../fonts/PlusJakartaSans-MediumItalic.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../fonts/PlusJakartaSans-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../fonts/PlusJakartaSans-SemiBoldItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../fonts/PlusJakartaSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../fonts/PlusJakartaSans-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../fonts/PlusJakartaSans-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../fonts/PlusJakartaSans-ExtraBoldItalic.ttf') format('truetype');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* --- Variabel warna & font (design token terpusat) --- */
+:root {
+  /* Palet utama Kerjain! */
+  --biru: #188BEA;         /* identitas utama (latar, aksen besar) */
+  --biru-teks: #0B62A9;    /* biru untuk teks kecil/border (aman dibaca) */
+  --lime: #CCFF55;         /* aksen CTA & highlight */
+  --putih: #FFFFFF;
+  --charcoal: #1A1B1C;     /* teks utama */
+  --abu-muda: #F3F4F6;     /* latar section sekunder */
+
+  /* Warna pendukung: teks redup, border, dan status */
+  --abu: #6B7280;
+  --garis: #E5E7EB;
+  --biru-muda: #E3F0FD;
+  --hijau: #2E975B;        /* status done */
+  --merah: #C0392B;        /* pesan error */
+
+  --bayangan: 0 4px 14px rgba(0, 0, 0, 0.07);
+  --radius: 14px;
+  --font: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* --- Alias lama: nama token dipertahankan supaya aturan CSS Modul A/B/C
+         tetap jalan tanpa perlu mengganti nama di banyak tempat. --- */
+  --kuning: var(--lime);       /* dulu #FFC517, sekarang aksen lime */
+  --krem: var(--abu-muda);     /* dulu #F1F0EB, sekarang light gray */
+  --abu-gelap: var(--charcoal);/* dulu #444444 */
+
+  /* Spasi & radius yang dipakai berulang (biar konsisten saat redesign nanti) */
+  --spasi-xs: 0.35rem;
+  --spasi-sm: 0.6rem;
+  --spasi-md: 1rem;
+  --spasi-lg: 1.6rem;
+  --spasi-xl: 2.4rem;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+}
+
+/* --- Reset dasar --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font);
+  background-color: var(--krem);
+  color: var(--abu-gelap);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul {
+  list-style: none;
+}
+
+/* --- Container & tata letak --- */
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+/* --- Tombol pill --- */
+.btn {
+  display: inline-block;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.55rem 1.4rem;
+  border-radius: 999px;             /* pill */
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+  line-height: 1.4;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background-color: var(--lime);
+  color: var(--charcoal);
+}
+
+.btn-primary:hover {
+  background-color: #C3F64D;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border-color: var(--biru-teks);
+  color: var(--biru-teks);
+}
+
+.btn-outline:hover {
+  background-color: var(--biru-teks);
+  color: var(--putih);
+}
+
+/* Tombol sekunder di atas latar biru/langit (hero landing page) */
+.btn-light {
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.9);
+  color: var(--putih);
+}
+
+.btn-light:hover {
+  background-color: var(--putih);
+  color: var(--charcoal);
+}
+
+/* --- Navbar --- */
+.navbar {
+  background-color: var(--putih);
+  border-bottom: 1px solid var(--garis);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-inner {
+  max-width: 1100px;
+  margin-inline: auto;
+  padding: 0.7rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.logo {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--biru);
+  letter-spacing: -0.5px;
+}
+
+/* Logo wordmark PNG (1123x341) — tinggi diatur di sini, rasio dijaga
+   lewat atribut width/height di HTML supaya layout tidak bergeser. */
+.logo img {
+  height: 28px;
+  width: auto;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.1rem;
+}
+
+.nav-links a {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--charcoal);
+  transition: color 0.15s ease;
+}
+
+.nav-links a:hover {
+  color: var(--biru-teks);
+}
+
+.nav-user {
+  font-size: 0.9rem;
+  color: var(--abu);
+}
+
+.nav-user a {
+  color: var(--biru-teks);
+}
+
+/* Tombol hamburger (batang CSS, bukan emoji) */
+.nav-toggle {
+  display: none;                     /* muncul di HP/tablet lewat media query */
+  background: none;
+  border: none;
+  padding: 0.4rem;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: var(--charcoal);
+  border-radius: 2px;
+}
+
+/* --- Pesan flash --- */
+.alert {
+  margin-top: 1rem;
+  padding: 0.8rem 1.1rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.alert-error {
+  background-color: #FDECEA;
+  color: var(--merah);
+  border: 1px solid #F5C6C2;
+}
+
+.alert-success {
+  background-color: #E8F6EE;
+  color: var(--hijau);
+  border: 1px solid #BFE5CF;
+}
+
+/* --- Hero landing page (latar: aset background-landingpage.png) --- */
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  min-height: clamp(500px, 76vh, 660px);
+  padding-block: clamp(3rem, 9vh, 5rem);
+  background-color: var(--biru);         /* fallback kalau gambar gagal dimuat */
+  background-image: url('../img/background-landingpage.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 25%;
+  color: var(--putih);
+}
+
+/* Overlay tipis: hanya di sisi tempat teks berada, supaya detail awan di
+   sisi kanan tetap terlihat. Bukan lapisan gelap penuh. */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(100deg, rgba(7, 48, 99, 0.60) 0%, rgba(7, 48, 99, 0.32) 55%, rgba(7, 48, 99, 0.08) 100%);
+}
+
+.hero-copy {
+  max-width: 660px;
+}
+
+.hero h1 {
+  font-size: clamp(2.3rem, 5vw, 3.9rem);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  color: var(--putih);
+}
+
+.hero h1 .aksen {
+  color: var(--lime);
+}
+
+.hero-desc {
+  margin-top: 1.1rem;
+  max-width: 52ch;
+  font-size: clamp(1rem, 1.3vw, 1.12rem);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.hero .btn-row {
+  margin-top: 1.8rem;
+  display: flex;
+  gap: 0.8rem;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   Landing page (index.php)
+   <main> di landing page memakai class "landing" tanpa .container, jadi
+   hero dan section bisa membentang penuh; tiap section membuat container
+   sendiri. Aturan lama (.section-title, .project-grid, .btn) tetap dipakai.
+   ========================================================================== */
+.landing-band {
+  padding-block: clamp(2.6rem, 6vw, 4.2rem);
+}
+
+.landing-band--putih {
+  background-color: var(--putih);
+}
+
+.landing-band--abu {
+  background-color: var(--abu-muda);
+}
+
+.section-head {
+  max-width: 720px;
+  margin-bottom: 1.5rem;
+}
+
+.section-head .section-title {
+  margin-bottom: 0.35rem;
+}
+
+.section-sub {
+  color: var(--abu);
+  font-size: 0.98rem;
+}
+
+/* --- Chips kategori (data dari tabel categories) --- */
+.kategori-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 2.6rem;
+}
+
+.kategori-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  background-color: var(--putih);
+  border: 1px solid var(--garis);
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  font-weight: 600;
+  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.kategori-chip:hover {
+  border-color: var(--biru);
+  background-color: var(--biru-muda);
+  color: var(--biru-teks);
+}
+
+.kategori-chip .jumlah {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--abu);
+}
+
+/* Landing: grid project & CTA disesuaikan (halaman lain tetap pakai aturan asli) */
+.landing .project-grid,
+.landing .section-cta {
+  padding-bottom: 0;
+}
+
+.landing .section-cta {
+  margin-top: 1.8rem;
+  justify-content: flex-start;
+  margin-bottom: 0;
+}
+
+.landing .kosong {
+  margin-bottom: 0;
+}
+
+/* --- Section "cara kerja": daftar bernomor, bukan deretan kartu --- */
+.cara-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: clamp(1.6rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.cara-teks p {
+  color: var(--abu);
+  margin-top: 0.6rem;
+}
+
+.langkah-list {
+  display: grid;
+  gap: 1.1rem;
+  list-style: none;
+}
+
+.langkah {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.9rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--garis);
+}
+
+.langkah:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.langkah-no {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--biru-teks);
+  font-variant-numeric: tabular-nums;
+}
+
+.langkah h3 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.langkah p {
+  font-size: 0.92rem;
+  color: var(--abu);
+  margin-top: 0.15rem;
+}
+
+.landing-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: clamp(1.6rem, 4vw, 2.4rem);
+}
+
+/* --- Fokus keyboard: outline mengikuti warna teks, jadi terlihat di latar
+       putih maupun di atas langit --- */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+.page-link:focus-visible,
+.kategori-chip:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* --- Judul bagian --- */
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 1.2rem;
+  color: var(--abu-gelap);
+}
+
+/* --- Kartu project (gaya folder) --- */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.4rem;
+  padding-bottom: 3rem;
+}
+
+.project-card {
+  background-color: var(--putih);
+  border: 1px solid var(--garis);
+  border-radius: var(--radius);
+  box-shadow: var(--bayangan);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  /* kesan "folder": sudut kiri-atas lebih tegas */
+  border-top-left-radius: 4px;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.1);
+}
+
+/* pita kategori ala tab folder (netral — lime disimpan untuk CTA) */
+.card-tab {
+  background-color: var(--abu-muda);
+  color: var(--charcoal);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.35rem 0.9rem;
+  align-self: flex-start;
+  border-bottom-right-radius: var(--radius);
+}
+
+.card-body {
+  padding: 1rem 1.2rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.card-body h3 {
+  font-size: 1.12rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.card-desc {
+  font-size: 0.9rem;
+  color: var(--abu);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-meta {
+  font-size: 0.85rem;
+  color: var(--abu);
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.card-budget {
+  font-weight: 800;
+  color: var(--biru-teks);
+  font-size: 1rem;
+}
+
+/* --- Badge status --- */
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.badge-open {
+  background-color: var(--biru-muda);
+  color: var(--biru-teks);
+}
+
+.badge-in_progress {
+  background-color: #FFF3CC;
+  color: #8A6D00;
+}
+
+.badge-done {
+  background-color: #E8F6EE;
+  color: var(--hijau);
+}
+
+.badge-closed {
+  background-color: #ECECEC;
+  color: var(--abu);
+}
+
+.badge-pending {
+  background-color: #FFF3CC;
+  color: #8A6D00;
+}
+
+.badge-accepted {
+  background-color: #E8F6EE;
+  color: var(--hijau);
+}
+
+.badge-rejected {
+  background-color: #FDECEA;
+  color: var(--merah);
+}
+
+/* --- Catatan kosong (belum ada data) --- */
+.kosong {
+  text-align: center;
+  color: var(--abu);
+  padding: 2.5rem 1rem;
+  background-color: var(--putih);
+  border-radius: var(--radius);
+  box-shadow: var(--bayangan);
+  margin-bottom: 3rem;
+}
+
+/* --- Footer (latar charcoal biar kontras dengan section terang) --- */
+.footer {
+  background-color: var(--charcoal);
+  color: var(--putih);
+  margin-top: 0;
+  padding-top: 2.6rem;
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.6rem;
+  padding-bottom: 1.8rem;
+}
+
+.footer h4 {
+  margin-bottom: 0.6rem;
+  font-weight: 800;
+}
+
+.footer p,
+.footer li {
+  font-size: 0.92rem;
+  opacity: 0.85;
+}
+
+.footer li {
+  margin-bottom: 0.3rem;
+}
+
+.footer a:hover {
+  color: var(--lime);
+  text-decoration: none;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 0.9rem 1.25rem;
+  font-size: 0.85rem;
+  opacity: 0.8;
+  text-align: center;
+}
+
+/* ==========================================================================
+   Bingkai halaman (page) — dipakai semua halaman lewat header.php
+   ========================================================================== */
+.page {
+  padding-block: var(--spasi-lg) var(--spasi-xl);
+}
+
+.page-header {
+  margin-bottom: var(--spasi-lg);
+}
+
+.page-header h1 {
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  font-weight: 800;
+  color: var(--biru);
+  letter-spacing: -0.5px;
+}
+
+.page-header p {
+  color: var(--abu);
+  margin-top: var(--spasi-xs);
+}
+
+/* ==========================================================================
+   Form — dipakai halaman register, login, dan profil
+   ========================================================================== */
+.form-card {
+  background-color: var(--putih);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--bayangan);
+  padding: 2rem 1.8rem;
+}
+
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin-bottom: var(--spasi-md);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spasi-xs);
+  margin-bottom: 1.1rem;
+}
+
+.form-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.form-label .wajib {
+  color: var(--merah);
+}
+
+.form-control {
+  width: 100%;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--abu-gelap);
+  background-color: var(--putih);
+  border: 2px solid var(--garis);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 0.9rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--biru);
+  box-shadow: 0 0 0 3px rgba(24, 139, 234, 0.18);
+}
+
+textarea.form-control {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.form-control.input-error,
+.input-error {
+  border-color: var(--merah);
+}
+
+.form-hint {
+  font-size: 0.8rem;
+  color: var(--abu);
+}
+
+.form-error {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--merah);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1rem;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.4rem;
+}
+
+.btn-full {
+  width: 100%;
+  text-align: center;
+}
+
+/* ==========================================================================
+   Kartu autentikasi (register & login) — dibuat di Modul A
+   ========================================================================== */
+.auth-wrap {
+  max-width: 520px;
+  margin-inline: auto;
+}
+
+.auth-card h1 {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--biru);
+  letter-spacing: -0.5px;
+}
+
+.auth-card .auth-sub {
+  font-size: 0.95rem;
+  color: var(--abu);
+  margin: 0.2rem 0 1.4rem;
+}
+
+.auth-alt {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--abu);
+  margin-top: 1.3rem;
+}
+
+.auth-alt a {
+  color: var(--biru-teks);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Profil pengguna — dibuat di Modul A
+   ========================================================================== */
+.profile-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.profile-card {
+  background-color: var(--putih);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--bayangan);
+  padding: var(--spasi-lg);
+}
+
+.profile-summary {
+  text-align: center;
+}
+
+.avatar,
+.avatar-placeholder {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  margin-inline: auto;
+}
+
+.avatar {
+  object-fit: cover;
+  border: 4px solid var(--krem);
+}
+
+.avatar-placeholder {
+  background-color: var(--biru);
+  color: var(--putih);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4rem;
+  font-weight: 800;
+}
+
+.profile-name {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-top: 0.9rem;
+}
+
+.profile-role {
+  display: inline-block;
+  margin-top: var(--spasi-xs);
+}
+
+.info-list {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1.4rem;
+  text-align: left;
+}
+
+.info-list dt {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--abu);
+}
+
+.info-list dd {
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.bio-text {
+  font-weight: 400;
+  white-space: pre-line;
+}
+
+/* ==========================================================================
+   Utilitas kecil
+   ========================================================================== */
+.text-muted {
+  color: var(--abu);
+}
+
+.nav-form {
+  display: inline;
+}
+
+.badge-role {
+  background-color: var(--biru-muda);
+  color: var(--biru-teks);
+}
+
+/* ==========================================================================
+   Responsif
+   ========================================================================== */
+/* Navbar penuh (semua menu 1 baris) hanya dipakai kalau memang muat.
+   Di bawah 1080px, menu pengguna login (nama + tombol keluar) mulai
+   membungkus jadi 2 baris, jadi lebih baik pakai hamburger. */
+@media (max-width: 1080px) {
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.7rem;
+    padding-top: 0.6rem;
+    padding-bottom: 0.4rem;
+  }
+
+  .nav-links.is-open {
+    display: flex;
+  }
+}
+
+@media (max-width: 860px) {
+  /* Kartu profil jadi satu kolom */
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Landing: daftar langkah menumpuk, overlay hero dibuat rata lebar
+     karena teks kini memenuhi lebar layar */
+  .cara-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero::before {
+    background: linear-gradient(180deg, rgba(7, 48, 99, 0.58) 0%, rgba(7, 48, 99, 0.42) 100%);
+  }
+}
+
+@media (max-width: 480px) {
+  /* HP kecil: tombol hero selebar layar agar nyaman disentuh */
+  .hero .btn-row .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .landing-cta .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ==========================================================================
+   Modul B — Projects & Kategori
+   ========================================================================== */
+
+/* Kartu project yang bisa diklik seluruhnya */
+.card-link {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-link:hover h3 {
+  color: var(--biru-teks);
+}
+
+.section-cta {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+/* --- Filter bar (daftar project) --- */
+.filter-bar {
+  background-color: var(--putih);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--bayangan);
+  padding: 1.2rem 1.4rem;
+  display: grid;
+  grid-template-columns: 2fr 1.2fr auto;
+  gap: 1rem;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spasi-xs);
+}
+
+.filter-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.hasil-info {
+  color: var(--abu);
+  font-size: 0.9rem;
+  margin-bottom: 1.2rem;
+}
+
+/* --- Pagination --- */
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-bottom: 2.5rem;
+}
+
+.page-link {
+  background-color: var(--putih);
+  border-radius: 999px;
+  padding: 0.4rem 1rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: var(--bayangan);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.page-link:hover {
+  background-color: var(--biru-teks);
+  color: var(--putih);
+}
+
+.page-link.is-active {
+  background-color: var(--biru-teks);
+  color: var(--putih);
+}
+
+/* --- Detail project --- */
+.breadcrumb {
+  font-size: 0.85rem;
+  color: var(--abu);
+  margin-bottom: 0.4rem;
+}
+
+.breadcrumb a:hover {
+  color: var(--biru-teks);
+  text-decoration: underline;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.detail-side {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.detail-card {
+  background-color: var(--putih);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--bayangan);
+  padding: 1.5rem 1.6rem;
+}
+
+.card-tab-static {
+  display: inline-block;
+  align-self: flex-start;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+  padding: 0.3rem 0.9rem;
+}
+
+.detail-desc {
+  margin-top: 0.5rem;
+  line-height: 1.7;
+}
+
+.meta-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 1.6rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--garis);
+}
+
+.meta-list dt {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--abu);
+}
+
+.meta-list dd {
+  font-weight: 600;
+}
+
+.owner-name {
+  font-weight: 800;
+  font-size: 1.05rem;
+}
+
+.action-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/* --- Tombol tambahan --- */
+.btn-danger {
+  background-color: var(--merah);
+  color: var(--putih);
+}
+
+.btn-danger:hover {
+  background-color: #A93226;
+}
+
+.btn-sm {
+  padding: 0.35rem 1rem;
+  font-size: 0.82rem;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn:disabled:hover {
+  transform: none;
+}
+
+/* --- Form project (create & edit) --- */
+.form-wrap {
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--garis);
+  margin: 1.6rem 0;
+}
+
+/* --- Halaman "Project Saya" --- */
+.page-toolbar {
+  margin-bottom: var(--spasi-lg);
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 0.8rem;
+  margin-bottom: 1.6rem;
+}
+
+.stat-card {
+  background-color: var(--putih);
+  border-radius: var(--radius);
+  box-shadow: var(--bayangan);
+  padding: 0.9rem 1rem;
+  text-align: center;
+  border: 2px solid transparent;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+}
+
+.stat-card.is-active {
+  border-color: var(--biru);
+}
+
+.stat-number {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--biru);
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--abu);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.9rem 1.2rem 1.1rem;
+  border-top: 1px solid var(--garis);
+}
+
+.card-actions form {
+  display: inline;
+}
+
+/* --- Admin: kelola kategori --- */
+.form-inline {
+  display: grid;
+  grid-template-columns: 1.2fr 1.6fr auto;
+  gap: 0 1rem;
+  align-items: end;
+}
+
+.form-inline .form-group {
+  margin-bottom: 0;
+}
+
+.cat-list {
+  margin-bottom: 2rem;
+}
+
+.cat-row {
+  background-color: var(--putih);
+  border-radius: var(--radius);
+  box-shadow: var(--bayangan);
+  padding: 1.1rem 1.3rem;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+}
+
+.cat-edit-form {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr auto;
+  gap: 0 1rem;
+  align-items: end;
+}
+
+.cat-edit-form .form-group {
+  margin-bottom: 0;
+}
+
+.cat-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.cat-delete-form {
+  padding-bottom: 0.05rem;
+}
+
+/* ==========================================================================
+   Responsif tambahan (Modul B)
+   ========================================================================== */
+@media (max-width: 860px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  /* form dua kolom jadi satu kolom di HP */
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-bar,
+  .form-inline,
+  .cat-edit-form {
+    grid-template-columns: 1fr;
+  }
+
+  .cat-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .filter-actions .btn,
+  .form-inline .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ==========================================================================
+   Aksesibilitas gerak — hormati preferensi sistem
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+
+  .btn:hover,
+  .project-card:hover,
+  .stat-card:hover {
+    transform: none;
+  }
+}
+
